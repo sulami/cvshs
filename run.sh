@@ -11,12 +11,12 @@ TIME="/usr/bin/time"
 TFLAGS="-p -a -o ${LOG}"
 
 prepC() {
-    echo "Building ${1}..."
+    echo "Building ${1}_c..."
     ${CC} ${CFLAGS} -o ${1}_c ${1}.c
 }
 
 prepHS() {
-    echo "Building ${1}..."
+    echo "Building ${1}_hs..."
     ${HC} ${HFLAGS} -o ${1}_hs ${1}.hs
 }
 
@@ -29,8 +29,10 @@ cleanup() {
 runVS() {
     echo "TESTING: ${1}" >> ${LOG}
     echo "C version:" >> ${LOG}
+    echo "Running ${1}_c..."
     ${TIME} ${TFLAGS} ./${1}_c > /dev/null
     echo "Haskell version:" >> ${LOG}
+    echo "Running ${1}_hs..."
     ${TIME} ${TFLAGS} ./${1}_hs > /dev/null
     echo "" >> ${LOG}
 }
